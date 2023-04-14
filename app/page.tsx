@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <div>
-      Hello AirBnB
+      Hello Airbnb
     </div>
   )
 }

@@ -12,6 +12,7 @@ const Logo = () => {
       alt="Logo"
       height="100"
       width="100"
+      onClick={() => router.push('/')}
       className="hidden md:block cursor-pointer"
     />
   );
