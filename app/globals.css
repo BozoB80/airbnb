@@ -23,11 +23,3 @@ body,
   font-size: 16px !important;
   width: 100% !important;
 }
-
-html::-webkit-scrollbar{
-  display: none;
-}
-
-html{
-  scrollbar-width: none;
-}
