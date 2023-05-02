@@ -1,28 +1,39 @@
-import prisma from '@/app/libs/prismadb'
+import prisma from "@/app/libs/prismadb";
 
 export interface IListingsParams {
-  userId?: string
-  guestCount?: number
-  roomCount?: number
-  bathroomCount?: number
-  startDate?: string
-  endDate?: string
-  locationValue?: string
-  category?: string
+  userId?: string;
+  guestCount?: number;
+  roomCount?: number;
+  bathroomCount?: number;
+  startDate?: string;
+  endDate?: string;
+  locationValue?: string;
+  category?: string;
 }
 
-const getListings = async ( params: IListingsParams ) => {
-
+export default async function getListings(
+  params: IListingsParams
+) {
   try {
-    const { userId, guestCount, roomCount, bathroomCount, category, endDate, locationValue, startDate } = params
-    let query: any = {}
+    const {
+      userId,
+      roomCount, 
+      guestCount, 
+      bathroomCount, 
+      locationValue,
+      startDate,
+      endDate,
+      category,
+    } = params;
+
+    let query: any = {};
 
     if (userId) {
-      query.userId = userId
+      query.userId = userId;
     }
 
     if (category) {
-      query.category = category
+      query.category = category;
     }
 
     if (roomCount) {
@@ -30,11 +41,13 @@ const getListings = async ( params: IListingsParams ) => {
         gte: +roomCount
       }
     }
+
     if (guestCount) {
       query.guestCount = {
         gte: +guestCount
       }
     }
+
     if (bathroomCount) {
       query.bathroomCount = {
         gte: +bathroomCount
@@ -42,7 +55,7 @@ const getListings = async ( params: IListingsParams ) => {
     }
 
     if (locationValue) {
-      query.locationValue = locationValue
+      query.locationValue = locationValue;
     }
 
     if (startDate && endDate) {
@@ -69,20 +82,15 @@ const getListings = async ( params: IListingsParams ) => {
       orderBy: {
         createdAt: 'desc'
       }
-    })
+    });
 
     const safeListings = listings.map((listing) => ({
       ...listing,
-      createdAt: listing.createdAt.toISOString()
-    }))
+      createdAt: listing.createdAt.toISOString(),
+    }));
 
-    return safeListings
-    
+    return safeListings;
   } catch (error: any) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }
-
-
-
-export default getListings;
